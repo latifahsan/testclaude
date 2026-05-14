@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Muhammad Latif Ahsan Jauhari</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+  <link rel="stylesheet" href="assets/css/theme.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+  <script src="assets/js/theme.js"></script>
+  <style>
+    /* Masonry gallery */
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 1.25rem;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1.25rem;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      border: 1px solid var(--border-subtle);
+      transition: all var(--transition-smooth);
+    }
+
+    .gallery-item:hover {
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .gallery-item-inner {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-placeholder {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+      transition: transform var(--transition-smooth);
+      gap: 0.75rem;
+    }
+
+    .gallery-item:hover .gallery-placeholder {
+      transform: scale(1.04);
+    }
+
+    .gallery-emoji {
+      font-size: 2.5rem;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity var(--transition-smooth);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-caption {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.4;
+    }
+
+    .gallery-zoom-icon {
+      position: absolute;
+      top: 0.875rem;
+      right: 0.875rem;
+      width: 34px;
+      height: 34px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      opacity: 0;
+      transition: opacity var(--transition-smooth);
+    }
+
+    .gallery-item:hover .gallery-zoom-icon { opacity: 1; }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: rgba(0,0,0,0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-smooth);
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .lightbox-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 860px;
+      width: 100%;
+      transform: scale(0.95);
+      transition: transform var(--transition-smooth);
+    }
+
+    .lightbox.open .lightbox-content {
+      transform: scale(1);
+    }
+
+    .lightbox-visual {
+      width: 100%;
+      max-height: 70vh;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .lightbox-visual img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: var(--radius-xl);
+    }
+
+    #lightboxCaption {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* Nav arrows */
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+
+    @media (max-width: 768px) {
+      .gallery-masonry { columns: 2; }
+      .lightbox-nav { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-masonry { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-name">M. Latif A. Jauhari</span>
+        <span class="logo-title">IT Support & Technician</span>
+      </a>
+      <div class="navbar-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="projects.html" class="nav-link">Projects</a>
+        <a href="skills.html" class="nav-link">Skills</a>
+        <a href="experience.html" class="nav-link">Experience</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="gallery.html" class="nav-link active">Gallery</a>
+        <a href="achievements.html" class="nav-link">Achievements</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="navbar-actions">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-nav-link">Home</a>
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <a href="projects.html" class="mobile-nav-link">Projects</a>
+    <a href="skills.html" class="mobile-nav-link">Skills</a>
+    <a href="experience.html" class="mobile-nav-link">Experience</a>
+    <a href="blog.html" class="mobile-nav-link">Blog</a>
+    <a href="gallery.html" class="mobile-nav-link active">Gallery</a>
+    <a href="achievements.html" class="mobile-nav-link">Achievements</a>
+    <a href="contact.html" class="mobile-nav-link">Contact</a>
+  </div>
+
+  <div class="page-header">
+    <div class="container">
+      <span class="page-header-eyebrow">Visual</span>
+      <h1 class="page-header-title">Gallery &amp; <em>Moments</em></h1>
+      <p class="page-header-subtitle">A visual diary of activities, projects, internship moments, and memorable events.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Filters -->
+      <div class="filter-tabs reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="internship">Internship</button>
+        <button class="filter-btn" data-filter="activities">Activities</button>
+        <button class="filter-btn" data-filter="projects">Projects</button>
+        <button class="filter-btn" data-filter="certificates">Certificates</button>
+        <button class="filter-btn" data-filter="events">Events</button>
+        <button class="filter-btn" data-filter="design">Design</button>
+      </div>
+
+      <!-- Masonry Grid -->
+      <div class="gallery-masonry stagger-children" id="galleryGrid">
+
+        <!-- Internship -->
+        <div class="gallery-item" data-category="internship" data-caption="Servis laptop pertama di Maestro Computer" data-emoji="💻">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:280px;">
+              <span class="gallery-emoji">💻</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Internship</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">Servis laptop pertama di Maestro Computer</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="activities" data-caption="Kegiatan ekstrakurikuler teknologi sekolah" data-emoji="🏫">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:200px;">
+              <span class="gallery-emoji">🏫</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Activities</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">Kegiatan ekstrakurikuler teknologi sekolah</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="events" data-caption="LKS IT Network System Administrator 2026" data-emoji="🏆">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:240px;">
+              <span class="gallery-emoji">🏆</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Events</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">LKS IT Network System Administrator 2026</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="projects" data-caption="Network setup project — LAN configuration" data-emoji="🌐">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:300px;">
+              <span class="gallery-emoji">🌐</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Projects</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">Network setup project — LAN configuration</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="certificates" data-caption="Sertifikat PKL — Maestro Computer" data-emoji="📜">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:220px;">
+              <span class="gallery-emoji">📜</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Certificates</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">Sertifikat PKL — Maestro Computer</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="design" data-caption="UI design exploration — portfolio mockup" data-emoji="🎨">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:260px;">
+              <span class="gallery-emoji">🎨</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Design</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">UI design exploration — portfolio mockup</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="internship" data-caption="Pembersihan heatsink dan penggantian thermal paste" data-emoji="🔧">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:200px;">
+              <span class="gallery-emoji">🔧</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Internship</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">Pembersihan heatsink — thermal paste replacement</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="activities" data-caption="Diskusi kelompok proyek jaringan" data-emoji="🤝">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:240px;">
+              <span class="gallery-emoji">🤝</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Activities</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">Diskusi kelompok proyek jaringan</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="projects" data-caption="Modern Village Website — tampilan desktop" data-emoji="🌿">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:200px;">
+              <span class="gallery-emoji">🌿</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Projects</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">Modern Village Website — tampilan desktop</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="events" data-caption="Upacara penyerahan trofi LKS" data-emoji="🥈">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:280px;">
+              <span class="gallery-emoji">🥈</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Events</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">Penyerahan trofi LKS — Juara 2</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="certificates" data-caption="Sertifikat Hardware Maintenance Training" data-emoji="📋">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:200px;">
+              <span class="gallery-emoji">📋</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Certificates</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">Sertifikat Hardware Maintenance Training</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="design" data-caption="Desain poster digital untuk event sekolah" data-emoji="✨">
+          <div class="gallery-item-inner">
+            <div class="gallery-placeholder" style="height:220px;">
+              <span class="gallery-emoji">✨</span>
+              <span style="font-size:0.8rem;color:var(--text-muted);">Design</span>
+            </div>
+            <div class="gallery-overlay">
+              <span class="gallery-caption">Desain poster digital untuk event sekolah</span>
+            </div>
+            <div class="gallery-zoom-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightboxOverlay">
+    <button class="lightbox-close" id="lightboxClose">×</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="lightbox-content">
+      <div class="lightbox-visual" id="lightboxVisual">
+        <span id="lightboxEmoji" style="font-size:8rem;"></span>
+      </div>
+      <p id="lightboxCaption" style="font-size:0.9rem;color:rgba(255,255,255,0.7);text-align:center;"></p>
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="navbar-logo">
+          <span class="logo-name">M. Latif A. Jauhari</span>
+          <span class="logo-title">IT Support & Technician</span>
+        </div>
+        <p class="footer-copy">© 2026 Muhammad Latif Ahsan Jauhari.</p>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const items = document.querySelectorAll('.gallery-item');
+      const overlay = document.getElementById('lightboxOverlay');
+      const emojiEl = document.getElementById('lightboxEmoji');
+      const captionEl = document.getElementById('lightboxCaption');
+      const closeBtn = document.getElementById('lightboxClose');
+      const prevBtn = document.getElementById('lightboxPrev');
+      const nextBtn = document.getElementById('lightboxNext');
+
+      let currentIndex = 0;
+      let visibleItems = [];
+
+      function updateVisibleItems() {
+        visibleItems = [...items].filter(i => i.style.display !== 'none');
+      }
+
+      function openLightbox(index) {
+        updateVisibleItems();
+        currentIndex = index;
+        const item = visibleItems[currentIndex];
+        emojiEl.textContent = item.getAttribute('data-emoji') || '🖼️';
+        captionEl.textContent = item.getAttribute('data-caption') || '';
+        overlay.classList.add('open');
+        document.body.classList.add('no-scroll');
+      }
+
+      function closeLightbox() {
+        overlay.classList.remove('open');
+        document.body.classList.remove('no-scroll');
+      }
+
+      function navigate(dir) {
+        updateVisibleItems();
+        currentIndex = (currentIndex + dir + visibleItems.length) % visibleItems.length;
+        const item = visibleItems[currentIndex];
+        emojiEl.textContent = item.getAttribute('data-emoji') || '🖼️';
+        captionEl.textContent = item.getAttribute('data-caption') || '';
+      }
+
+      items.forEach((item, i) => {
+        item.addEventListener('click', () => {
+          updateVisibleItems();
+          const visIdx = visibleItems.indexOf(item);
+          openLightbox(visIdx >= 0 ? visIdx : 0);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
+      prevBtn.addEventListener('click', () => navigate(-1));
+      nextBtn.addEventListener('click', () => navigate(1));
+
+      document.addEventListener('keydown', e => {
+        if (!overlay.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigate(-1);
+        if (e.key === 'ArrowRight') navigate(1);
+      });
+
+      // Filter
+      document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const f = btn.getAttribute('data-filter');
+          items.forEach(item => {
+            const match = f === 'all' || item.getAttribute('data-category') === f;
+            item.style.display = match ? '' : 'none';
+          });
+        });
+      });
+    });
+  </script>
+
+  <script src="assets/js/navbar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/theme.js"></script>
+</body>
+</html>
