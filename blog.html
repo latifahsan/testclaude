@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Muhammad Latif Ahsan Jauhari</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+  <link rel="stylesheet" href="assets/css/theme.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+  <script src="assets/js/theme.js"></script>
+  <style>
+    /* Search bar */
+    .blog-search-wrap {
+      position: relative;
+      max-width: 480px;
+      margin: 0 auto 3rem;
+    }
+
+    .blog-search-icon {
+      position: absolute;
+      left: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    #blogSearch {
+      width: 100%;
+      padding: 0.875rem 1.25rem 0.875rem 3rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: 100px;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+
+    #blogSearch::placeholder { color: var(--text-muted); }
+
+    #blogSearch:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px var(--accent-blue-dim);
+    }
+
+    /* Featured article */
+    .blog-featured {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-bottom: 4rem;
+      transition: all var(--transition-smooth);
+    }
+
+    .blog-featured:hover {
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .blog-featured-thumb {
+      background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      min-height: 280px;
+    }
+
+    .blog-featured-body {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .blog-featured-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      margin-bottom: 1rem;
+    }
+
+    .blog-featured-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.25;
+      margin-bottom: 0.875rem;
+    }
+
+    .blog-featured-excerpt {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .blog-featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .blog-meta-dot { width: 3px; height: 3px; background: var(--text-muted); border-radius: 50%; }
+
+    /* Blog grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+
+    .blog-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all var(--transition-smooth);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .blog-card-thumb {
+      height: 160px;
+      background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      transition: transform var(--transition-smooth);
+      overflow: hidden;
+    }
+
+    .blog-card:hover .blog-card-thumb { transform: scale(1.05); }
+
+    .blog-card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      margin-bottom: 0.625rem;
+    }
+
+    .blog-card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+      margin-bottom: 0.625rem;
+      flex: 1;
+    }
+
+    .blog-card-excerpt {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+
+    .blog-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .blog-card-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .blog-card-read {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .blog-read-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.82rem;
+      color: var(--accent-blue);
+      font-weight: 500;
+      transition: gap var(--transition-fast);
+    }
+
+    .blog-card:hover .blog-read-link { gap: 0.625rem; }
+
+    @media (max-width: 1024px) {
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+      .blog-featured { grid-template-columns: 1fr; }
+      .blog-featured-thumb { min-height: 200px; }
+    }
+
+    @media (max-width: 640px) {
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-name">M. Latif A. Jauhari</span>
+        <span class="logo-title">IT Support & Technician</span>
+      </a>
+      <div class="navbar-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="projects.html" class="nav-link">Projects</a>
+        <a href="skills.html" class="nav-link">Skills</a>
+        <a href="experience.html" class="nav-link">Experience</a>
+        <a href="blog.html" class="nav-link active">Blog</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="achievements.html" class="nav-link">Achievements</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="navbar-actions">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-nav-link">Home</a>
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <a href="projects.html" class="mobile-nav-link">Projects</a>
+    <a href="skills.html" class="mobile-nav-link">Skills</a>
+    <a href="experience.html" class="mobile-nav-link">Experience</a>
+    <a href="blog.html" class="mobile-nav-link active">Blog</a>
+    <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+    <a href="achievements.html" class="mobile-nav-link">Achievements</a>
+    <a href="contact.html" class="mobile-nav-link">Contact</a>
+  </div>
+
+  <div class="page-header">
+    <div class="container">
+      <span class="page-header-eyebrow">Writing</span>
+      <h1 class="page-header-title">Blog &amp; <em>Insights</em></h1>
+      <p class="page-header-subtitle">Thoughts, guides, and stories from my journey in IT — written to help others learn faster.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Search -->
+      <div class="blog-search-wrap reveal">
+        <svg class="blog-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="blogSearch" placeholder="Search articles…" />
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="tips">Tips & Tricks</button>
+        <button class="filter-btn" data-filter="experience">Experience</button>
+        <button class="filter-btn" data-filter="guides">Guides</button>
+        <button class="filter-btn" data-filter="networking">Networking</button>
+        <button class="filter-btn" data-filter="webdev">Web Dev</button>
+      </div>
+
+      <!-- Featured Article -->
+      <div class="reveal" style="margin-bottom:1rem;">
+        <span class="section-eyebrow">Featured Article</span>
+      </div>
+      <a href="blog-detail.html" class="blog-featured reveal" style="text-decoration:none;display:grid;">
+        <div class="blog-featured-thumb">💻</div>
+        <div class="blog-featured-body">
+          <div class="blog-featured-label">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Featured · Experience
+          </div>
+          <h2 class="blog-featured-title">Pengalaman PKL di Maestro Computer — 6 Bulan yang Mengubah Saya</h2>
+          <p class="blog-featured-excerpt">Saya berbagi pengalaman nyata selama 6 bulan magang di Maestro Computer — dari hari pertama yang nervous, hingga servis laptop pertama yang saya kerjakan sendiri. Inilah cerita perjalanan PKL saya.</p>
+          <div class="blog-featured-meta">
+            <span>April 12, 2026</span>
+            <div class="blog-meta-dot"></div>
+            <span>8 min read</span>
+            <div class="blog-meta-dot"></div>
+            <span class="badge" style="font-size:0.68rem;padding:0.2rem 0.6rem;">Experience</span>
+          </div>
+          <div style="margin-top:1.25rem;">
+            <span class="blog-read-link">
+              Read Article
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- All Articles -->
+      <div class="section-header reveal" style="margin-bottom:2rem;">
+        <span class="section-eyebrow">All Articles</span>
+        <h2 class="section-title">Latest Posts</h2>
+      </div>
+
+      <div class="blog-grid stagger-children">
+
+        <a href="blog-detail.html" class="blog-card" data-category="tips" style="text-decoration:none;">
+          <div class="blog-card-thumb">🔧</div>
+          <div class="blog-card-body">
+            <div class="blog-card-category">Tips & Tricks</div>
+            <h3 class="blog-card-title">10 Tips Perawatan Laptop agar Tidak Cepat Rusak</h3>
+            <p class="blog-card-excerpt">Panduan praktis merawat laptop sehari-hari — dari pembersihan fisik, manajemen baterai, hingga kebiasaan yang harus dihindari.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">Mar 28, 2026</span>
+              <span class="blog-card-read">5 min read</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="blog-detail.html" class="blog-card" data-category="experience" style="text-decoration:none;">
+          <div class="blog-card-thumb">💼</div>
+          <div class="blog-card-body">
+            <div class="blog-card-category">Experience</div>
+            <h3 class="blog-card-title">Pengalaman PKL di Maestro Computer — 6 Bulan yang Mengubah Saya</h3>
+            <p class="blog-card-excerpt">Cerita lengkap pengalaman magang 6 bulan: pelajaran berharga, momen tak terlupakan, dan hal yang saya bawa pulang.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">Apr 12, 2026</span>
+              <span class="blog-card-read">8 min read</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="blog-detail.html" class="blog-card" data-category="guides" style="text-decoration:none;">
+          <div class="blog-card-thumb">🪟</div>
+          <div class="blog-card-body">
+            <div class="blog-card-category">Guides</div>
+            <h3 class="blog-card-title">Panduan Lengkap Troubleshooting Windows — Dari Error Umum hingga Blue Screen</h3>
+            <p class="blog-card-excerpt">Langkah-langkah sistematis mengatasi masalah Windows yang paling sering ditemui — tanpa perlu instal ulang setiap saat.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">Mar 15, 2026</span>
+              <span class="blog-card-read">10 min read</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="blog-detail.html" class="blog-card" data-category="networking" style="text-decoration:none;">
+          <div class="blog-card-thumb">🌐</div>
+          <div class="blog-card-body">
+            <div class="blog-card-category">Networking</div>
+            <h3 class="blog-card-title">Dasar-Dasar Jaringan Komputer yang Wajib Dipahami Siswa SMK TJKT</h3>
+            <p class="blog-card-excerpt">Pengantar konsep jaringan komputer — topologi, IP addressing, subnetting, dan cara membangun LAN sederhana dari nol.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">Feb 20, 2026</span>
+              <span class="blog-card-read">7 min read</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="blog-detail.html" class="blog-card" data-category="webdev" style="text-decoration:none;">
+          <div class="blog-card-thumb">🎨</div>
+          <div class="blog-card-body">
+            <div class="blog-card-category">Web Dev</div>
+            <h3 class="blog-card-title">Cara Saya Membangun Portfolio Website Ini dari Nol — HTML, CSS & JS</h3>
+            <p class="blog-card-excerpt">Proses kreatif di balik pembuatan website portfolio ini — desain, coding, tantangan, dan pelajaran yang saya dapatkan.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">May 1, 2026</span>
+              <span class="blog-card-read">6 min read</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="blog-detail.html" class="blog-card" data-category="tips" style="text-decoration:none;">
+          <div class="blog-card-thumb">⚡</div>
+          <div class="blog-card-body">
+            <div class="blog-card-category">Tips & Tricks</div>
+            <h3 class="blog-card-title">5 Software Gratis yang Wajib Ada di Toolkit Setiap IT Technician</h3>
+            <p class="blog-card-excerpt">Rekomendasi tools gratis terbaik untuk diagnosis hardware, monitoring sistem, dan pemeliharaan PC — yang saya gunakan sehari-hari.</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">Jan 30, 2026</span>
+              <span class="blog-card-read">4 min read</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="navbar-logo">
+          <span class="logo-name">M. Latif A. Jauhari</span>
+          <span class="logo-title">IT Support & Technician</span>
+        </div>
+        <p class="footer-copy">© 2026 Muhammad Latif Ahsan Jauhari.</p>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script src="assets/js/navbar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/gallery.js"></script>
+  <script src="assets/js/theme.js"></script>
+</body>
+</html>
