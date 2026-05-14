@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Muhammad Latif Ahsan Jauhari</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+  <link rel="stylesheet" href="assets/css/theme.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+  <script src="assets/js/theme.js"></script>
+  <style>
+    .about-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-image-wrap {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .about-avatar {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      font-weight: 600;
+      color: var(--accent-blue);
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md), 0 0 40px var(--accent-blue-glow);
+    }
+
+    .about-quick-info {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .info-row:last-child { border-bottom: none; }
+
+    .info-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .info-value {
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      text-align: right;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border-subtle);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.65rem;
+      top: 0.35rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+      border: 2px solid var(--bg-primary);
+      box-shadow: 0 0 12px var(--accent-blue-glow);
+    }
+
+    .timeline-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      margin-bottom: 0.375rem;
+    }
+
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-sub {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.625rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Values */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .value-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      transition: all var(--transition-smooth);
+    }
+
+    .value-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+    }
+
+    .value-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.625rem;
+    }
+
+    .value-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .value-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1024px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-image-wrap { position: static; }
+      .about-avatar { max-width: 320px; margin: 0 auto 1.5rem; }
+    }
+
+    @media (max-width: 540px) {
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-name">M. Latif A. Jauhari</span>
+        <span class="logo-title">IT Support & Technician</span>
+      </a>
+      <div class="navbar-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="projects.html" class="nav-link">Projects</a>
+        <a href="skills.html" class="nav-link">Skills</a>
+        <a href="experience.html" class="nav-link">Experience</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="achievements.html" class="nav-link">Achievements</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="navbar-actions">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-nav-link">Home</a>
+    <a href="about.html" class="mobile-nav-link active">About</a>
+    <a href="projects.html" class="mobile-nav-link">Projects</a>
+    <a href="skills.html" class="mobile-nav-link">Skills</a>
+    <a href="experience.html" class="mobile-nav-link">Experience</a>
+    <a href="blog.html" class="mobile-nav-link">Blog</a>
+    <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+    <a href="achievements.html" class="mobile-nav-link">Achievements</a>
+    <a href="contact.html" class="mobile-nav-link">Contact</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <span class="page-header-eyebrow">About Me</span>
+      <h1 class="page-header-title">The Story Behind<br /><em>the Technician</em></h1>
+      <p class="page-header-subtitle">A passionate IT student turned real-world technician, learning through every challenge.</p>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- LEFT: Image + Quick Info -->
+        <div class="about-image-wrap reveal">
+          <div class="about-avatar">ML</div>
+
+          <div class="about-quick-info">
+            <div class="info-row">
+              <span class="info-label">Name</span>
+              <span class="info-value">M. Latif A. Jauhari</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">School</span>
+              <span class="info-value">SMK TJKT</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Major</span>
+              <span class="info-value">TJKT (Teknik Jaringan<br/>Komputer & Telekomunikasi)</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Internship</span>
+              <span class="info-value">Maestro Computer<br/>~6 Months</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Location</span>
+              <span class="info-value">Indonesia</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Status</span>
+              <span class="info-value">
+                <span class="badge">Available</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Content -->
+        <div>
+          <!-- Introduction -->
+          <div class="reveal" style="margin-bottom:3rem;">
+            <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--text-primary);margin-bottom:1.25rem;">Hi, I'm Latif 👋</h2>
+            <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:1rem;font-size:1rem;">
+              I'm a vocational high school student majoring in <strong style="color:var(--text-primary);">Teknik Jaringan Komputer dan Telekomunikasi (TJKT)</strong>, with a genuine passion for IT support, computer troubleshooting, and networking.
+            </p>
+            <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:1rem;font-size:1rem;">
+              My journey started with a simple curiosity — why do computers break, and how do you fix them? That curiosity evolved into a skill set, an internship, and now a portfolio of projects I'm truly proud of.
+            </p>
+            <p style="color:var(--text-secondary);line-height:1.8;font-size:1rem;">
+              I believe in learning by doing. Every service call, every broken device, and every network I've configured has taught me something new. I'm driven by the motto: <em style="color:var(--accent-blue);">"Belajar, Berkarya, dan Bertumbuh Setiap Hari."</em>
+            </p>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Education Timeline -->
+          <div class="reveal" style="margin-bottom:3rem;">
+            <h3 style="font-size:1.1rem;font-weight:600;color:var(--text-primary);margin-bottom:2rem;display:flex;align-items:center;gap:0.75rem;">
+              <span style="width:32px;height:32px;background:var(--accent-blue-dim);border-radius:8px;display:flex;align-items:center;justify-content:center;">🎓</span>
+              Education Journey
+            </h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-date">2023 – Present</div>
+                <div class="timeline-title">SMK TJKT</div>
+                <div class="timeline-sub">Teknik Jaringan Komputer & Telekomunikasi</div>
+                <p class="timeline-desc">Studying advanced networking, IT infrastructure, and computer systems. Participating in competitions and developing real-world technical skills.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">2020 – 2023</div>
+                <div class="timeline-title">SMP (Junior High School)</div>
+                <div class="timeline-sub">Completed with strong academic foundation</div>
+                <p class="timeline-desc">Developed early interest in technology and computing. Started exploring basic computer skills independently.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">2014 – 2020</div>
+                <div class="timeline-title">SD (Elementary School)</div>
+                <div class="timeline-sub">Primary Education</div>
+                <p class="timeline-desc">Built foundational knowledge and a curiosity-driven mindset that still drives learning today.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Internship -->
+          <div class="reveal" style="margin-bottom:3rem;">
+            <h3 style="font-size:1.1rem;font-weight:600;color:var(--text-primary);margin-bottom:2rem;display:flex;align-items:center;gap:0.75rem;">
+              <span style="width:32px;height:32px;background:var(--accent-blue-dim);border-radius:8px;display:flex;align-items:center;justify-content:center;">💼</span>
+              Internship Experience
+            </h3>
+            <div class="card" style="border-color:var(--border-accent);">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;">
+                <div>
+                  <h4 style="font-size:1rem;font-weight:600;color:var(--text-primary);">IT Support Intern</h4>
+                  <p style="font-size:0.875rem;color:var(--accent-blue);font-weight:500;">Maestro Computer</p>
+                </div>
+                <span class="badge badge-warm">~6 Months</span>
+              </div>
+              <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.7;margin-bottom:1.25rem;">
+                During my internship at Maestro Computer, I gained hands-on experience in a real IT service environment. I was responsible for computer diagnostics, hardware repair, software installation, and customer service.
+              </p>
+              <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+                <span class="badge">Hardware Repair</span>
+                <span class="badge">OS Installation</span>
+                <span class="badge">Customer Support</span>
+                <span class="badge">Troubleshooting</span>
+                <span class="badge">Component Replacement</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Personal Values -->
+          <div class="reveal">
+            <h3 style="font-size:1.1rem;font-weight:600;color:var(--text-primary);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;">
+              <span style="width:32px;height:32px;background:var(--accent-blue-dim);border-radius:8px;display:flex;align-items:center;justify-content:center;">✨</span>
+              Personal Values
+            </h3>
+            <div class="values-grid">
+              <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <div class="value-title">Always Learning</div>
+                <div class="value-desc">Technology evolves fast. I stay curious and continuously update my skills to keep up.</div>
+              </div>
+              <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <div class="value-title">Collaborative Spirit</div>
+                <div class="value-desc">I work best in teams and believe great things are built together, not alone.</div>
+              </div>
+              <div class="value-card">
+                <div class="value-icon">🔍</div>
+                <div class="value-title">Detail-Oriented</div>
+                <div class="value-desc">From cable management to documentation — precision matters in every task.</div>
+              </div>
+              <div class="value-card">
+                <div class="value-icon">💡</div>
+                <div class="value-title">Problem Solver</div>
+                <div class="value-desc">Every broken system is a puzzle. I enjoy finding clean, efficient solutions to complex problems.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="navbar-logo">
+          <span class="logo-name">M. Latif A. Jauhari</span>
+          <span class="logo-title">IT Support & Technician</span>
+        </div>
+        <p class="footer-copy">© 2026 Muhammad Latif Ahsan Jauhari.</p>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script src="assets/js/navbar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/theme.js"></script>
+</body>
+</html>
