@@ -29,7 +29,7 @@
 
   /* JANGAN display:flex */
   .mobile-menu {
-    display: none;
+    display: flex;
   }
 
   /* Grid */
