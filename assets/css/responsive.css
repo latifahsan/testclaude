@@ -317,3 +317,32 @@
   }
 
 }
+
+/* ============================================
+   FINAL AVATAR CENTER FIX
+============================================ */
+
+@media (max-width: 768px) {
+
+  .hero-image-wrap {
+    width: 100%;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .hero-avatar {
+    width: min(260px, 80vw);
+    aspect-ratio: 4 / 5;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .hero-avatar-badge {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+}
