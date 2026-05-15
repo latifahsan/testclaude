@@ -111,3 +111,142 @@
   .container { padding: 0 1rem; }
   .hero-stats { flex-direction: column; gap: 1.5rem; }
 }
+
+/* ============================================
+   MOBILE CENTER FIX
+============================================ */
+
+@media (max-width: 768px) {
+
+  /* Container */
+  .container,
+  .container-sm {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding-top: 8rem;
+    text-align: center;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    justify-items: center;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-eyebrow,
+  .hero-actions,
+  .hero-stats,
+  .hero-socials {
+    justify-content: center;
+  }
+
+  .hero-tagline {
+    border-left: none;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .hero-title br {
+    display: none;
+  }
+
+  .hero-avatar {
+    width: min(280px, 85vw);
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+
+  .hero-image-wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Stats */
+  .hero-stats {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .hero-stat-divider {
+    display: none;
+  }
+
+  /* Buttons */
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+  }
+
+  .section-title,
+  .section-subtitle {
+    text-align: center;
+  }
+
+  /* Grid Layout */
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Navbar */
+  .navbar-inner {
+    padding: 0 1rem;
+  }
+
+  .navbar-menu {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+
+  /* Footer */
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Back To Top */
+  .back-to-top {
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+}
