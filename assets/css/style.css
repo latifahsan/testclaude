@@ -967,3 +967,20 @@ h1, h2, h3, h4, h5 {
   background: var(--accent-blue-dim);
   color: var(--accent-blue);
 }
+
+/* Loading Logo */
+.loading-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.loading-logo img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+
+  animation: logoFloat 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(59,130,246,0.35));
+}
