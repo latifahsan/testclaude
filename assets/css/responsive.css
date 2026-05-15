@@ -2,7 +2,6 @@
    RESPONSIVE.CSS
 ============================================ */
 
-
 /* ============================================
    LARGE DESKTOP
 ============================================ */
@@ -14,7 +13,6 @@
 
 }
 
-
 /* ============================================
    TABLET LANDSCAPE
 ============================================ */
@@ -25,9 +23,13 @@
     display: none;
   }
 
-  .hamburger,
-  .mobile-menu {
+  .hamburger {
     display: flex;
+  }
+
+  /* JANGAN display:flex */
+  .mobile-menu {
+    display: none;
   }
 
   /* Grid */
@@ -39,9 +41,9 @@
   /* Hero */
   .hero-grid {
     grid-template-columns: 1fr;
-    justify-items: center;
     text-align: center;
     gap: 3rem;
+    justify-items: center;
   }
 
   .hero-content {
@@ -56,7 +58,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin: 0 auto;
+    align-items: center;
   }
 
   .hero-actions,
@@ -80,13 +82,7 @@
     margin: 0 auto;
   }
 
-  /* Services */
-  .services-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
 }
-
 
 /* ============================================
    TABLET PORTRAIT & MOBILE
@@ -123,46 +119,67 @@
     padding: 7rem 0 3rem;
   }
 
-  /* Grid */
+  /* ============================================
+     FORCE 1 COLUMN
+  ============================================ */
   .grid-2,
   .grid-3,
   .grid-4,
+  .services-grid,
   .achievement-grid,
   .blog-grid,
-  .projects-grid,
-  .services-grid {
-    grid-template-columns: 1fr;
+  .projects-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
   }
 
+  /* SERVICES FIX */
+  .services-grid {
+    gap: 1.25rem;
+  }
+
+  .service-card {
+    width: 100%;
+  }
+
+  /* Skills */
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Hero */
+  /* ============================================
+     HERO
+  ============================================ */
   .hero {
     padding-top: 8rem;
     text-align: center;
   }
 
-  .hero-grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 2.5rem;
+  .hero .container {
     width: 100%;
+  }
+
+  .hero-grid {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3rem;
   }
 
   .hero-content {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: center !important;
+    text-align: center !important;
   }
 
   .hero-eyebrow,
   .hero-actions,
-  .hero-socials,
-  .hero-stats {
+  .hero-stats,
+  .hero-socials {
     justify-content: center;
   }
 
@@ -184,20 +201,32 @@
     font-size: clamp(1rem, 3vw, 1.3rem) !important;
   }
 
-  /* Avatar */
+  /* ============================================
+     AVATAR FIX
+  ============================================ */
   .hero-image-wrap {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    position: relative;
+    left: 0 !important;
+    right: 0 !important;
   }
 
   .hero-avatar {
-    width: min(260px, 82vw);
-    height: auto;
+    width: min(260px, 80vw);
     aspect-ratio: 4 / 5;
-    margin: 0 auto;
+    height: auto;
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    position: relative;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
   }
 
   .hero-avatar-inner {
@@ -248,15 +277,6 @@
     font-size: 0.95rem;
   }
 
-  /* Services */
-  .services-grid {
-    gap: 1.25rem;
-  }
-
-  .service-card {
-    width: 100%;
-  }
-
   /* Timeline */
   .timeline-item {
     grid-template-columns: 1fr;
@@ -300,7 +320,6 @@
 
 }
 
-
 /* ============================================
    MOBILE
 ============================================ */
@@ -327,10 +346,6 @@
     font-size: 1.9rem;
   }
 
-  .hero-avatar {
-    width: min(240px, 84vw);
-  }
-
   .modal-overlay {
     padding: 1rem;
   }
@@ -341,15 +356,13 @@
 
 }
 
-
 /* ============================================
    VERY SMALL SCREEN
 ============================================ */
 @media (max-width: 380px) {
 
   .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 0 1rem;
   }
 
   .hero-stats {
