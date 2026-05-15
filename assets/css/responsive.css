@@ -2,40 +2,57 @@
    RESPONSIVE.CSS
 ============================================ */
 
-/* Large Desktop */
+/* ============================================
+   LARGE DESKTOP
+============================================ */
 @media (max-width: 1280px) {
-  .container { max-width: 1020px; }
-}
 
-/* Tablet Landscape */
-@media (max-width: 1024px) {
-
-  .navbar-menu { display: none; }
-
-  .hamburger {
-    display: flex;
+  .container {
+    max-width: 1020px;
   }
 
+}
+
+/* ============================================
+   TABLET LANDSCAPE
+============================================ */
+@media (max-width: 1024px) {
+
+  /* Navbar */
+  .navbar-menu {
+    display: none;
+  }
+
+  .hamburger,
   .mobile-menu {
     display: flex;
   }
 
+  /* Grid */
+  .grid-3,
   .grid-4 {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .grid-3 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+  /* Hero */
   .hero-grid {
     grid-template-columns: 1fr;
+    text-align: center;
+    gap: 3rem;
+    justify-items: center;
+  }
+
+  .hero-content {
+    align-items: center;
     text-align: center;
   }
 
   .hero-image-wrap {
     order: -1;
     margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .hero-actions,
@@ -44,7 +61,9 @@
     justify-content: center;
   }
 
-  .about-grid {
+  /* About */
+  .about-grid,
+  .contact-grid {
     grid-template-columns: 1fr;
   }
 
@@ -57,13 +76,11 @@
     margin: 0 auto;
   }
 
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-
 }
 
-/* Tablet Portrait */
+/* ============================================
+   TABLET PORTRAIT & MOBILE
+============================================ */
 @media (max-width: 768px) {
 
   :root {
@@ -103,7 +120,7 @@
   .achievement-grid,
   .blog-grid,
   .projects-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
 
   .skills-grid {
@@ -116,13 +133,22 @@
     text-align: center;
   }
 
+  .hero .container {
+    display: flex;
+    justify-content: center;
+  }
+
   .hero-grid {
-    grid-template-columns: 1fr;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 3rem;
-    justify-items: center;
   }
 
   .hero-content {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -154,7 +180,7 @@
     font-size: clamp(1rem, 3vw, 1.3rem) !important;
   }
 
-  /* HERO PROFILE FIX */
+  /* Avatar */
   .hero-image-wrap {
     width: 100%;
     display: flex;
@@ -187,8 +213,8 @@
   /* Stats */
   .hero-stats {
     flex-wrap: wrap;
-    gap: 1.5rem;
     justify-content: center;
+    gap: 1.5rem;
   }
 
   .hero-stat-divider {
@@ -206,8 +232,8 @@
     align-items: center;
   }
 
-  .hero-actions .btn,
-  .btn {
+  .btn,
+  .hero-actions .btn {
     width: 100%;
     max-width: 320px;
     justify-content: center;
@@ -218,7 +244,7 @@
     font-size: 0.95rem;
   }
 
-  /* Core Services */
+  /* Services */
   .services-grid {
     gap: 1.25rem;
   }
@@ -270,11 +296,17 @@
 
 }
 
-/* Mobile */
+/* ============================================
+   MOBILE
+============================================ */
 @media (max-width: 540px) {
 
   .skills-grid {
     grid-template-columns: 1fr;
+  }
+
+  .gallery-masonry {
+    columns: 1;
   }
 
   .filter-tabs {
@@ -284,10 +316,6 @@
   .filter-btn {
     padding: 0.4rem 1rem;
     font-size: 0.75rem;
-  }
-
-  .gallery-masonry {
-    columns: 1;
   }
 
   .section-title {
@@ -304,7 +332,9 @@
 
 }
 
-/* Very small screens */
+/* ============================================
+   VERY SMALL SCREEN
+============================================ */
 @media (max-width: 380px) {
 
   .container {
@@ -314,35 +344,6 @@
   .hero-stats {
     flex-direction: column;
     gap: 1.5rem;
-  }
-
-}
-
-/* ============================================
-   FINAL AVATAR CENTER FIX
-============================================ */
-
-@media (max-width: 768px) {
-
-  .hero-image-wrap {
-    width: 100%;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    position: relative;
-    margin: 0 auto;
-  }
-
-  .hero-avatar {
-    width: min(260px, 80vw);
-    aspect-ratio: 4 / 5;
-    height: auto;
-    margin: 0 auto;
-  }
-
-  .hero-avatar-badge {
-    left: 50%;
-    transform: translateX(-50%);
   }
 
 }
