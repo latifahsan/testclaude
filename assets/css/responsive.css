@@ -2,6 +2,7 @@
    RESPONSIVE.CSS
 ============================================ */
 
+
 /* ============================================
    LARGE DESKTOP
 ============================================ */
@@ -12,6 +13,7 @@
   }
 
 }
+
 
 /* ============================================
    TABLET LANDSCAPE
@@ -37,22 +39,24 @@
   /* Hero */
   .hero-grid {
     grid-template-columns: 1fr;
+    justify-items: center;
     text-align: center;
     gap: 3rem;
-    justify-items: center;
   }
 
   .hero-content {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
   .hero-image-wrap {
     order: -1;
-    margin: 0 auto;
     width: 100%;
     display: flex;
     justify-content: center;
+    margin: 0 auto;
   }
 
   .hero-actions,
@@ -76,7 +80,13 @@
     margin: 0 auto;
   }
 
+  /* Services */
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
 }
+
 
 /* ============================================
    TABLET PORTRAIT & MOBILE
@@ -90,7 +100,8 @@
   /* Container */
   .container,
   .container-sm {
-    padding: 0 1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
   /* Section */
@@ -116,10 +127,10 @@
   .grid-2,
   .grid-3,
   .grid-4,
-  .services-grid,
   .achievement-grid,
   .blog-grid,
-  .projects-grid {
+  .projects-grid,
+  .services-grid {
     grid-template-columns: 1fr;
   }
 
@@ -133,18 +144,11 @@
     text-align: center;
   }
 
-  .hero .container {
-    display: flex;
-    justify-content: center;
-  }
-
   .hero-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 2.5rem;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3rem;
   }
 
   .hero-content {
@@ -157,8 +161,8 @@
 
   .hero-eyebrow,
   .hero-actions,
-  .hero-stats,
-  .hero-socials {
+  .hero-socials,
+  .hero-stats {
     justify-content: center;
   }
 
@@ -190,9 +194,9 @@
   }
 
   .hero-avatar {
-    width: min(260px, 80vw);
-    aspect-ratio: 4 / 5;
+    width: min(260px, 82vw);
     height: auto;
+    aspect-ratio: 4 / 5;
     margin: 0 auto;
   }
 
@@ -296,6 +300,7 @@
 
 }
 
+
 /* ============================================
    MOBILE
 ============================================ */
@@ -322,6 +327,10 @@
     font-size: 1.9rem;
   }
 
+  .hero-avatar {
+    width: min(240px, 84vw);
+  }
+
   .modal-overlay {
     padding: 1rem;
   }
@@ -332,13 +341,15 @@
 
 }
 
+
 /* ============================================
    VERY SMALL SCREEN
 ============================================ */
 @media (max-width: 380px) {
 
   .container {
-    padding: 0 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .hero-stats {
