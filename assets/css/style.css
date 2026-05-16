@@ -991,3 +991,21 @@ h1, h2, h3, h4, h5 {
   object-fit:cover;
   display:block;
 }
+
+/* Navbar Logo */
+.navbar-logo{
+  display:flex;
+  align-items:center;
+}
+
+.navbar-logo-img{
+  height:42px;
+  width:auto;
+  display:block;
+  object-fit:contain;
+  transition:all .3s ease;
+}
+
+.navbar-logo-img:hover{
+  transform:scale(1.05);
+}
