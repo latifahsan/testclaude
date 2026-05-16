@@ -977,8 +977,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .loading-logo img {
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
 
   animation: logoFloat 2s ease-in-out infinite;
