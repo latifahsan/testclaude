@@ -984,3 +984,10 @@ h1, h2, h3, h4, h5 {
   animation: logoFloat 2s ease-in-out infinite;
   filter: drop-shadow(0 0 12px rgba(59,130,246,0.25));
 }
+/* Profile */
+.hero-profile-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
