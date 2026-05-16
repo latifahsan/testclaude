@@ -454,67 +454,199 @@
         </div>
 
         <!-- RIGHT: Form -->
-        <div class="contact-form-card reveal reveal-delay-2">
-          <div id="formWrap">
-            <h3 class="form-title">Send a Message</h3>
-            <p class="form-subtitle">Fill in the form below and I'll get back to you as soon as possible.</p>
+<div class="contact-form-card reveal reveal-delay-2">
+  <div id="formWrap">
+    <h3 class="form-title">Send a Message</h3>
 
-            <div id="contactForm">
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label" for="firstName">First Name *</label>
-                  <input type="text" id="firstName" class="form-input" placeholder="Ahmad" required />
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="lastName">Last Name</label>
-                  <input type="text" id="lastName" class="form-input" placeholder="Fauzi" />
-                </div>
-              </div>
+    <p class="form-subtitle">
+      Fill in the form below and I'll get back to you as soon as possible.
+    </p>
 
-              <div class="form-group">
-                <label class="form-label" for="email">Email *</label>
-                <input type="email" id="email" class="form-input" placeholder="ahmad@email.com" required />
-              </div>
+    <form
+      id="contactForm"
+      action="https://formspree.io/f/xzdonwve"
+      method="POST"
+      novalidate
+    >
 
-              <div class="form-group">
-                <label class="form-label" for="subject">Subject</label>
-                <input type="text" id="subject" class="form-input" placeholder="IT Support / Project Collaboration / Say Hello" />
-              </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="firstName">
+            First Name *
+          </label>
 
-              <div class="form-group">
-                <label class="form-label" for="topic">Topic</label>
-                <select id="topic" class="form-select form-input">
-                  <option value="" disabled selected>Select a topic…</option>
-                  <option value="it-support">IT Support / Hardware Help</option>
-                  <option value="networking">Networking Consultation</option>
-                  <option value="webdev">Web Development Project</option>
-                  <option value="collaboration">Collaboration / Partnership</option>
-                  <option value="internship">Internship Opportunity</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="message">Message *</label>
-                <textarea id="message" class="form-textarea" placeholder="Hi Latif, I'd like to discuss…" required></textarea>
-              </div>
-
-              <button class="form-submit" onclick="submitForm(event)">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                Send Message
-              </button>
-            </div>
-          </div>
-
-          <!-- Success state (shown after submit) -->
-          <div class="form-success" id="formSuccess">
-            <span class="form-success-icon">🎉</span>
-            <div class="form-success-title">Message Sent!</div>
-            <p class="form-success-sub">Thank you for reaching out. I'll get back to you within 24 hours.</p>
-            <button onclick="resetForm()" style="margin-top:1.5rem;" class="btn btn-outline btn-sm">Send Another</button>
-          </div>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            class="form-input"
+            placeholder="Ahmad"
+            required
+          />
         </div>
 
+        <div class="form-group">
+          <label class="form-label" for="lastName">
+            Last Name
+          </label>
+
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            class="form-input"
+            placeholder="Fauzi"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="email">
+          Email *
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          placeholder="ahmad@email.com"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="subject">
+          Subject
+        </label>
+
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          class="form-input"
+          placeholder="IT Support / Project Collaboration / Say Hello"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="topic">
+          Topic
+        </label>
+
+        <div style="position:relative;">
+          <select
+            id="topic"
+            name="topic"
+            class="form-select"
+          >
+            <option value="" disabled selected>
+              Select a topic…
+            </option>
+
+            <option value="it-support">
+              IT Support / Hardware Help
+            </option>
+
+            <option value="networking">
+              Networking Consultation
+            </option>
+
+            <option value="webdev">
+              Web Development Project
+            </option>
+
+            <option value="collaboration">
+              Collaboration / Partnership
+            </option>
+
+            <option value="internship">
+              Internship Opportunity
+            </option>
+
+            <option value="other">
+              Other
+            </option>
+          </select>
+
+          <svg
+            style="
+              position:absolute;
+              right:1rem;
+              top:50%;
+              transform:translateY(-50%);
+              pointer-events:none;
+              color:var(--text-muted);
+            "
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="message">
+          Message *
+        </label>
+
+        <textarea
+          id="message"
+          name="message"
+          class="form-textarea"
+          placeholder="Hi Latif, I'd like to discuss…"
+          required
+        ></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+
+        <span class="btn-text">
+          Send Message
+        </span>
+      </button>
+    </form>
+  </div>
+
+  <!-- Success state -->
+  <div class="form-success" id="formSuccess">
+    <span class="form-success-icon">
+      🎉
+    </span>
+
+    <div class="form-success-title">
+      Message Sent!
+    </div>
+
+    <p class="form-success-sub">
+      Thank you for reaching out. I'll get back to you within 24 hours.
+    </p>
+
+    <button
+      onclick="resetForm()"
+      style="margin-top:1.5rem;"
+      class="btn btn-outline btn-sm"
+    >
+      Send Another
+    </button>
+  </div>
+</div>
       </div>
     </div>
   </section>
@@ -569,54 +701,164 @@
   </button>
 
   <script>
-    function submitForm(e) {
-      e.preventDefault();
-      const name = document.getElementById('firstName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
+  const form = document.getElementById('contactForm');
 
-      if (!name || !email || !message) {
-        // Shake empty required fields
-        [document.getElementById('firstName'), document.getElementById('email'), document.getElementById('message')].forEach(el => {
-          if (!el.value.trim()) {
-            el.style.borderColor = '#ef4444';
-            el.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.15)';
-            setTimeout(() => {
-              el.style.borderColor = '';
-              el.style.boxShadow = '';
-            }, 2000);
+  form.addEventListener('submit', submitForm);
+
+  async function submitForm(e) {
+    e.preventDefault();
+
+    const firstName =
+      document.getElementById('firstName');
+
+    const email =
+      document.getElementById('email');
+
+    const message =
+      document.getElementById('message');
+
+    const requiredFields = [
+      firstName,
+      email,
+      message
+    ];
+
+    let isValid = true;
+
+    // Reset styles
+    requiredFields.forEach(field => {
+      field.style.borderColor = '';
+      field.style.boxShadow = '';
+    });
+
+    // Empty validation
+    requiredFields.forEach(field => {
+      if (!field.value.trim()) {
+
+        field.style.borderColor = '#ef4444';
+
+        field.style.boxShadow =
+          '0 0 0 3px rgba(239,68,68,0.15)';
+
+        isValid = false;
+      }
+    });
+
+    // Email validation
+    const emailPattern =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (
+      email.value.trim() &&
+      !emailPattern.test(email.value.trim())
+    ) {
+
+      email.style.borderColor = '#ef4444';
+
+      email.style.boxShadow =
+        '0 0 0 3px rgba(239,68,68,0.15)';
+
+      isValid = false;
+    }
+
+    if (!isValid) return;
+
+    const submitBtn =
+      document.querySelector('.form-submit');
+
+    const btnText =
+      document.querySelector('.btn-text');
+
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.75';
+
+    btnText.textContent = 'Sending...';
+
+    try {
+
+      const response = await fetch(
+        form.action,
+        {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            Accept: 'application/json'
           }
-        });
-        return;
+        }
+      );
+
+      if (response.ok) {
+
+        document.getElementById(
+          'formWrap'
+        ).style.display = 'none';
+
+        document.getElementById(
+          'formSuccess'
+        ).style.display = 'block';
+
+      } else {
+
+        alert(
+          'Failed to send message.'
+        );
+
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '';
+
+        btnText.textContent =
+          'Send Message';
       }
 
-      // Simulate send
-      const btn = document.querySelector('.form-submit');
-      btn.textContent = 'Sending…';
-      btn.style.opacity = '0.75';
-      btn.disabled = true;
+    } catch (error) {
 
-      setTimeout(() => {
-        document.getElementById('contactForm').style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
-      }, 1200);
+      alert(
+        'Something went wrong.'
+      );
+
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '';
+
+      btnText.textContent =
+        'Send Message';
     }
+  }
 
-    function resetForm() {
-      document.getElementById('contactForm').style.display = '';
-      document.getElementById('formSuccess').style.display = 'none';
-      document.getElementById('firstName').value = '';
-      document.getElementById('lastName').value = '';
-      document.getElementById('email').value = '';
-      document.getElementById('subject').value = '';
-      document.getElementById('message').value = '';
-      const btn = document.querySelector('.form-submit');
-      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message';
-      btn.style.opacity = '';
-      btn.disabled = false;
-    }
-  </script>
+  function resetForm() {
 
+    form.reset();
+
+    document.getElementById(
+      'formWrap'
+    ).style.display = 'block';
+
+    document.getElementById(
+      'formSuccess'
+    ).style.display = 'none';
+
+    const submitBtn =
+      document.querySelector('.form-submit');
+
+    const btnText =
+      document.querySelector('.btn-text');
+
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = '';
+
+    btnText.textContent =
+      'Send Message';
+
+    document.querySelectorAll(
+      '.form-input, .form-textarea'
+    ).forEach(field => {
+
+      field.style.borderColor = '';
+
+      field.style.boxShadow = '';
+    });
+  }
+</script>  
+  
   <script src="assets/js/navbar.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/theme.js"></script>
